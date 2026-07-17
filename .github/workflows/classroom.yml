@@ -1,0 +1,50 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: TestParseArgs
+      id: testparseargs
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestParseArgs
+        setup-command: python3 ./checkA2.py -f -v
+        command: python3 ./checkA2.py -f -v
+        timeout: 10
+        max-score: 3
+    - name: TestPidList
+      id: testpidlist
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestPidList
+        setup-command: python3 ./checkA2.py -f -v
+        command: python3 ./checkA2.py -f -v TestPidList
+        timeout: 10
+        max-score: 3
+    - name: TestPidMem
+      id: testpidmem
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: TestPidMem
+        setup-command: python3 ./checkA2.py -f -v
+        command: python3 ./checkA2.py -f -v TestPidMem
+        timeout: 10
+        max-score: 3
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTPARSEARGS_RESULTS: "${{steps.testparseargs.outputs.result}}"
+        TESTPIDLIST_RESULTS: "${{steps.testpidlist.outputs.result}}"
+        TESTPIDMEM_RESULTS: "${{steps.testpidmem.outputs.result}}"
+      with:
+        runners: testparseargs,testpidlist,testpidmem
