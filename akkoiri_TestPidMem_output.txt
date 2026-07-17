@@ -1,0 +1,6 @@
+test_rss_total (__main__.TestPidMem.test_rss_total) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
