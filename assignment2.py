@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-OPS445 Assignment 2 - Winter 2023
+OPS445 Assignment 2 - Summer 2026
 Program: assignment2.py 
 Author: "Ambika Kumari Koiri"
 Student ID: "Akkoiri"
